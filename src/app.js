@@ -6,6 +6,7 @@ const { Customer, Order, Service, Transaction } = require("./models/laundry");
 const customer = require("./routes/customer/customerRoute");
 const errorMiddleware = require("./middleware/errorMiddleware");
 const service = require("./routes/service/serviceRoute");
+const order = require("./routes/order/orderRoute");
 
 dotenv.config();
 
@@ -15,10 +16,10 @@ try {
   DB.authenticate();
   console.log("Database connected");
 
-  //   Customer.sync({ alter: true });
-  //   Service.sync({ alter: true });
-  //   Order.sync({ alter: true });
-  //   Transaction.sync({ alter: true });
+  // Customer.sync({ alter: true });
+  // Service.sync({ alter: true });
+  // Order.sync({ alter: true });
+  // Transaction.sync({ alter: true });
 } catch (error) {
   console.log("Failed connect to database", error);
 }
@@ -28,6 +29,7 @@ app.use(cors());
 
 app.use("/customer", customer);
 app.use("/service", service);
+app.use("/order", order);
 app.use("/", (req, res) => {
   res.send("Hello World");
 });

@@ -94,11 +94,11 @@ const Transaction = DB.define(
   }
 );
 
-Customer.hasMany(Service, { foreignKey: "customer_id" });
-Service.belongsTo(Customer, { foreignKey: "customer_id" });
-
 Customer.hasMany(Order, { foreignKey: "customer_id" });
 Order.belongsTo(Customer, { foreignKey: "customer_id" });
+
+Service.hasMany(Order, { foreignKey: "service_id" });
+Order.belongsTo(Service, { foreignKey: "service_id" });
 
 Order.hasOne(Transaction);
 Transaction.belongsTo(Order);
