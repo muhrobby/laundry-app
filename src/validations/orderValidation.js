@@ -7,4 +7,8 @@ const createOrderSchema = joi.object({
   customer_id: joi.number().required(),
 });
 
-module.exports = { createOrderSchema };
+const getByOrder = joi.object({
+  order: joi.string().required(),
+});
+
+module.exports = { createOrderSchema, getByOrder };

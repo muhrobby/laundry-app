@@ -9,6 +9,17 @@ class OrderController {
       next(error);
     }
   }
+
+  async getByOrder(req, res, next) {
+    try {
+      console.log(req.params.order);
+
+      const result = await orderService.getByOrder(req.params.order);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
   async create(req, res, next) {
     try {
       const result = await orderService.create(req.body);

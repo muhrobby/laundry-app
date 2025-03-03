@@ -25,15 +25,46 @@ class OrderService {
       throw new ResponseError(error.message, 500);
     }
   }
+
+  async getByOrder(no_order) {
+    try {
+      console.log(no_order);
+
+      const order = await Order.findOne({
+        where: {
+          no_order,
+        },
+        include: [
+          {
+            model: Customer,
+          },
+          {
+            model: Service,
+          },
+        ],
+      });
+
+      if (!order) {
+        throw new ResponseError("Order not found", 404);
+      }
+
+      return {
+        success: true,
+        message: "Order fetched successfully",
+        data: order,
+      };
+    } catch (error) {
+      throw new ResponseError(error.message, 500);
+    }
+  }
   async create(data) {
     try {
       const { weight, subtotal, service_id, customer_id } = data;
       const no_order =
-        "INV/" +
+        "INV" +
         new Date().getFullYear() +
         String(new Date().getMonth() + 1).padStart(2, "0") +
         String(new Date().getDate()).padStart(2, "0") +
-        "/" +
         randomstring.generate({
           length: 7,
           capitalization: "uppercase",
