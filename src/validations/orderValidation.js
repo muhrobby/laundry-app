@@ -11,4 +11,13 @@ const getByOrder = joi.object({
   order: joi.string().required(),
 });
 
-module.exports = { createOrderSchema, getByOrder };
+const updateOrderSchema = joi
+  .object({
+    id: joi.number().required(),
+    status: joi.string(),
+    service_id: joi.number(),
+    weight: joi.number(),
+    subtotal: joi.number(),
+  })
+  .or("status", "service_id", "weight", "subtotal");
+module.exports = { createOrderSchema, getByOrder, updateOrderSchema };

@@ -4,6 +4,7 @@ const orderController = require("../../controllers/order/orderController");
 const {
   createOrderSchema,
   getByOrder,
+  updateOrderSchema,
 } = require("../../validations/orderValidation");
 
 const order = express.Router();
@@ -18,6 +19,12 @@ order.get(
   "/:order",
   validateRequest(getByOrder, "params"),
   orderController.getByOrder
+);
+
+order.patch(
+  "/update",
+  validateRequest(updateOrderSchema),
+  orderController.update
 );
 
 module.exports = order;
